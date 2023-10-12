@@ -1,0 +1,33 @@
+{% extends "payments/base.html" %} {%block content%}
+<div class="container">
+    <h4 class="text-center">Products Dashhbord</h4>
+    <div class="row">
+        {% for p in p %}
+        <div class="col">
+            <form action="{% url 'payment' %}" method="post">
+                {% csrf_token %}
+
+                <!--Some hiddden filed of belows filed-->
+                <input type="hidden" name="imageSrc" value="{{ p.p_img.url }}">
+                <input type="hidden" name="title" value="{{ p.p_name }}">
+                <input type="hidden" name="description" value="{{ p.desc }}">
+                <input type="hidden" name="amount" value="{{ p.price }}">
+
+
+                <div class="card" style="width: 22rem;">
+                    <img src="{{p.p_img.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{p.p_name}}</h5>
+                        <p class="card-text">{{p.desc}}</p>
+                        <div class="d-flex">
+                            <button type="submit" id="rzp-button1" class="btn btn-primary">Buy</button>
+                            <a href="#" class="btn btn-primary mx-2">₹ {{p.price}}</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{%endblock%}
